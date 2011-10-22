@@ -1,0 +1,4 @@
+## initial release
+If you use `publish-local` to test plugins and libraries, and you find yourself clearing Ivy2 cache often, this is a tool for you.
+
+The plugin is intended to be used as a global plugin. It automatically adds two global tasks to sbt prompt `clean-cache` and `clean-local` along with some settings like `clean-cache-files` and `clean-local-files`.

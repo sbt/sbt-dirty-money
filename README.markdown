@@ -1,4 +1,4 @@
-sbt-dirty-money is a sbt plugin for cleaning Ivy2 cache. If you use `publish-local` to test plugins and libraries, and you find yourself clearing Ivy2 cache often, this is a tool for you.
+sbt-dirty-money is an sbt plugin for cleaning Ivy2 cache. If you use `publish-local` to test plugins and libraries, and you find yourself clearing Ivy2 cache often, this is a tool for you.
 
 ## latest
 0.0.1
