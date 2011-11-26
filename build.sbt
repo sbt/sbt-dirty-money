@@ -6,6 +6,10 @@ organization := "com.eed3si9n"
 
 version := "0.0.1"
 
+description := "sbt plugin for cleaning Ivy2 cache"
+
+licenses := Seq("MIT License" -> url("https://github.com/sbt/sbt-dirty-money/blob/master/LICENSE"))
+
 scalacOptions := Seq("-deprecation", "-unchecked")
 
 publishMavenStyle := true
@@ -26,3 +30,9 @@ publishArtifact in (Compile, packageDoc) := false
 publishArtifact in (Compile, packageSrc) := false
 
 // seq(ScriptedPlugin.scriptedSettings: _*)
+
+seq(lsSettings :_*)
+
+LsKeys.tags in LsKeys.lsync := Seq("sbt", "utility")
+
+licenses in LsKeys.lsync <<= licenses
