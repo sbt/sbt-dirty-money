@@ -4,22 +4,13 @@ name := "sbt-dirty-money"
 
 organization := "com.eed3si9n"
 
-version := "0.0.1"
+version := "0.1.0-SNAPSHOT"
 
 description := "sbt plugin for cleaning Ivy2 cache"
 
 licenses := Seq("MIT License" -> url("https://github.com/sbt/sbt-dirty-money/blob/master/LICENSE"))
 
 scalacOptions := Seq("-deprecation", "-unchecked")
-
-publishMavenStyle := true
-
-publishTo <<= version { (v: String) =>
-  if(v endsWith "-SNAPSHOT") Some("Scala Tools Nexus" at "http://nexus.scala-tools.org/content/repositories/snapshots/")
-  else Some("Scala Tools Nexus" at "http://nexus.scala-tools.org/content/repositories/releases/")
-}
-
-credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
 publishArtifact in (Compile, packageBin) := true
 
@@ -31,8 +22,28 @@ publishArtifact in (Compile, packageSrc) := false
 
 // seq(ScriptedPlugin.scriptedSettings: _*)
 
-seq(lsSettings :_*)
+// seq(lsSettings :_*)
 
-LsKeys.tags in LsKeys.lsync := Seq("sbt", "utility")
+// LsKeys.tags in LsKeys.lsync := Seq("sbt", "utility")
 
-licenses in LsKeys.lsync <<= licenses
+// licenses in LsKeys.lsync <<= licenses
+
+publishMavenStyle := true
+
+publishTo <<= version { (v: String) =>
+  if(v endsWith "-SNAPSHOT") Some("Scala Tools Nexus" at "http://nexus.scala-tools.org/content/repositories/snapshots/")
+  else Some("Scala Tools Nexus" at "http://nexus.scala-tools.org/content/repositories/releases/")
+}
+
+credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
+
+publishMavenStyle := false
+
+publishTo <<= (version) { version: String =>
+   val scalasbt = "http://scalasbt.artifactoryonline.com/scalasbt/"
+   val (name, u) = if (version.contains("-SNAPSHOT")) ("sbt-plugin-snapshots", scalasbt+"sbt-plugin-snapshots")
+                   else ("sbt-plugin-releases", scalasbt+"sbt-plugin-releases")
+   Some(Resolver.url(name, url(u))(Resolver.ivyStylePatterns))
+}
+
+credentials += Credentials(Path.userHome / ".ivy2" / ".sbtcredentials")
