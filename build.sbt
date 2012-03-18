@@ -4,7 +4,7 @@ name := "sbt-dirty-money"
 
 organization := "com.eed3si9n"
 
-version := "0.1.0-SNAPSHOT"
+version := "0.0.1"
 
 description := "sbt plugin for cleaning Ivy2 cache"
 

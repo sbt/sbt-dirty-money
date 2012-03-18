@@ -1,12 +1,17 @@
 sbt-dirty-money is an sbt plugin for cleaning Ivy2 cache. If you use `publish-local` to test plugins and libraries, and you find yourself clearing Ivy2 cache often, this is a tool for you.
 
 ## latest
-0.0.1
-
-## how to setup
 Add the following to your `~/.sbt/plugins/build.sbt`:
 
-    addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "X.X.X")
+```scala
+addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "0.0.1")
+```
+
+For testing sbt 0.12.0 M2, add the following to `~/.sbt/plugins/build.sbt`:
+
+```scala
+libraryDependencies += Defaults.sbtPluginExtra("com.eed3si9n" % "sbt-dirty-money" % "0.0.1", "0.12.0-M2", "2.9.1")
+```
 
 ## how to use
 The above automatically adds two global tasks to sbt prompt `clean-cache` and `clean-local` along with some settings like `clean-cache-files` and `clean-local-files`.
