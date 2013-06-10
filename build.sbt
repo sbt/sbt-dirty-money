@@ -20,14 +20,6 @@ publishArtifact in (Compile, packageDoc) := false
 
 publishArtifact in (Compile, packageSrc) := false
 
-// seq(ScriptedPlugin.scriptedSettings: _*)
-
-// seq(lsSettings :_*)
-
-// LsKeys.tags in LsKeys.lsync := Seq("sbt", "utility")
-
-// licenses in LsKeys.lsync <<= licenses
-
 publishMavenStyle := true
 
 publishTo <<= version { (v: String) =>
@@ -47,3 +39,15 @@ publishTo <<= (version) { version: String =>
 }
 
 credentials += Credentials(Path.userHome / ".ivy2" / ".sbtcredentials")
+
+// seq(ScriptedPlugin.scriptedSettings: _*)
+
+// seq(lsSettings :_*)
+
+// LsKeys.tags in LsKeys.lsync := Seq("sbt", "utility")
+
+// licenses in LsKeys.lsync <<= licenses
+
+sbtVersion in Global := "0.13.0-Beta2" 
+
+scalaVersion in Global := "2.10.2-RC2" 
