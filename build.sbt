@@ -4,7 +4,7 @@ name := "sbt-dirty-money"
 
 organization := "com.eed3si9n"
 
-version := "0.0.1"
+version := "0.0.2"
 
 sbtVersion in Global := "0.13.0-RC1" 
 

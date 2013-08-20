@@ -4,17 +4,17 @@ sbt-dirty-money is an sbt plugin for cleaning Ivy2 cache. If you use `publish-lo
 Add the following to your `~/.sbt/plugins/build.sbt`:
 
 ```scala
-addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "0.0.1")
+addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "0.0.2")
 ```
 
 For testing sbt 0.12.0 M2, add the following to `~/.sbt/plugins/build.sbt`:
 
 ```scala
-libraryDependencies += Defaults.sbtPluginExtra("com.eed3si9n" % "sbt-dirty-money" % "0.0.1", "0.12.0-M2", "2.9.1")
+libraryDependencies += Defaults.sbtPluginExtra("com.eed3si9n" % "sbt-dirty-money" % "0.0.2", "0.12.0-M2", "2.9.1")
 ```
 
 ## how to use
-The above automatically adds two global tasks to sbt prompt `clean-cache` and `clean-local` along with some settings like `clean-cache-files` and `clean-local-files`.
+The above automatically adds three global tasks to sbt prompt: `clean-cache`, `clean-local` and `clean-ivy`,  along with some settings like `clean-cache-files`, `clean-local-files` and `clean-ivy-files`.
 
 To display what `clean-cache` would clean, run:
 
@@ -35,6 +35,14 @@ This is calculated as `((dir / "local") ** ("*" + organization + "*") ** ("*" + 
     > clean-local
     
 You probably want to clean cache if you clean local.
+
+To clean the entire ivy cache, across all projects with no respect for the organization or project names, run: 
+
+    > clean-ivy
+
+To display the files that would be removed without removing them, run: 
+ 
+    > show clean-ivy-files
 
 ## License
 MIT License. It's already in the license, but THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
