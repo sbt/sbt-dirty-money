@@ -44,26 +44,26 @@ If you cleaning local, it's probably a good idea to clean cache too.
 
 By passing command arguments, you can target other projects as well.
 
+To clean all artifacts that includes both `"net.databinder.dispatch"` and `"dispatch-json4s"` that are cached:
+
+    > show cleanCacheFiles "net.databinder.dispatch" % "dispatch-json4s"
+    [info] ArrayBuffer(~/.ivy2/cache/net.databinder.dispatch/dispatch-json4s-native_2.10, ...
+    > cleanCache "net.databinder.dispatch" % "dispatch-json4s"
+    [success] Total time: 0 s, completed Aug 21, 2013 9:47:26 PM
+
 To clean all artifacts from the organization `"net.databinder.dispatch"` that are cached.
 
     > show cleanCacheFiles "net.databinder.dispatch"
     [info] ArrayBuffer(~/.ivy2/cache/net.databinder.dispatch, ...
-
     > cleanCache "net.databinder.dispatch"
-
-To clean all artifacts that includes both `"net.databinder.dispatch"` and `"dispatch-json4s"` that are cached:
-
-    > show cleanCacheFiles "net.databinder.dispatch" % "dispatch-json4s"
-    [info] ArrayBuffer(~/cache/net.databinder.dispatch/dispatch-json4s-native_2.10, ...
-    
-    > cleanCache "net.databinder.dispatch" % "dispatch-json4s"
+    [success] Total time: 1 s, completed Aug 21, 2013 9:49:04 PM
 
 To clean all artifacts from the cache:
 
     > show cleanCacheFiles *
     [info] ArrayBuffer(~/.ivy2/cache, ~/.ivy2/cache/--compile-internal.xml ...
-
     > cleanCache *
+    [success] Total time: 95 s, completed Aug 21, 2013 9:51:17 PM
 
 The arguments work the same for `cleanLocalFiles` and `cleanLocal`.
 
