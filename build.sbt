@@ -6,7 +6,7 @@ organization := "com.eed3si9n"
 
 version := "0.1.0-SNAPSHOT"
 
-sbtVersion in Global := "0.13.0-RC1" 
+sbtVersion in Global := "0.13.0-RC5" 
 
 scalaVersion in Global := "2.10.2" 
 
@@ -24,15 +24,6 @@ publishArtifact in (Compile, packageDoc) := false
 
 publishArtifact in (Compile, packageSrc) := false
 
-publishMavenStyle := true
-
-publishTo <<= version { (v: String) =>
-  if(v endsWith "-SNAPSHOT") Some("Scala Tools Nexus" at "http://nexus.scala-tools.org/content/repositories/snapshots/")
-  else Some("Scala Tools Nexus" at "http://nexus.scala-tools.org/content/repositories/releases/")
-}
-
-credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
-
 publishMavenStyle := false
 
 publishTo <<= (version) { version: String =>
@@ -45,9 +36,3 @@ publishTo <<= (version) { version: String =>
 credentials += Credentials(Path.userHome / ".ivy2" / ".sbtcredentials")
 
 // seq(ScriptedPlugin.scriptedSettings: _*)
-
-// seq(lsSettings :_*)
-
-// LsKeys.tags in LsKeys.lsync := Seq("sbt", "utility")
-
-// licenses in LsKeys.lsync <<= licenses

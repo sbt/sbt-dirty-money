@@ -1,0 +1,19 @@
+## for sbt 0.13
+
+sbt-dirty-money 0.1.0 only works in sbt 0.13.
+
+## command arguments
+
+Previously, sbt-dirty-money was only able to clean the artifacts from your own project. 0.1.0 adds nifty arguments to target other organizations and names.
+
+    > show cleanCacheFiles
+    [info] ArrayBuffer(~/.ivy2/cache/example-helloworld_2.8.0-compile-internal.xml
+
+    > show cleanCacheFiles "net.databinder.dispatch"
+    [info] ArrayBuffer(~/.ivy2/cache/net.databinder.dispatch, ...
+    
+    > show cleanCacheFiles "net.databinder.dispatch" % "dispatch-json4s"
+    [info] ArrayBuffer(~/cache/net.databinder.dispatch/dispatch-json4s-native_2.10, ...
+    
+    > show cleanCacheFiles *
+    [info] ArrayBuffer(~/.ivy2/cache, ...

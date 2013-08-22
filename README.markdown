@@ -1,41 +1,68 @@
 sbt-dirty-money is an sbt plugin for cleaning Ivy2 cache. If you use `publish-local` to test plugins and libraries, and you find yourself clearing Ivy2 cache often, this is a tool for you.
 
-## latest
+## setup
+
 Add the following to your `~/.sbt/plugins/build.sbt`:
 
 ```scala
 addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "0.0.1")
 ```
 
-For testing sbt 0.12.0 M2, add the following to `~/.sbt/plugins/build.sbt`:
-
-```scala
-libraryDependencies += Defaults.sbtPluginExtra("com.eed3si9n" % "sbt-dirty-money" % "0.0.1", "0.12.0-M2", "2.9.1")
-```
-
 ## how to use
-The above automatically adds two global tasks to sbt prompt `clean-cache` and `clean-local` along with some settings like `clean-cache-files` and `clean-local-files`.
+
+### cleaning built artifacts
+
+The above automatically adds 4 global tasks to sbt prompt: `cleanCacheFiles`, `cleanCache`, `cleanLocalFiles`, and `cleanLocal`.
 
 To display what `clean-cache` would clean, run:
 
-    > show clean-cache-files
+    > show cleanCacheFiles
     [info] ArrayBuffer(/Users/foo/.ivy2/cache/scala_2.9.1/sbt_0.11.0/org.scalaxb/sbt-scalaxb, /Users/foo/.ivy2/cache/scala_2.9.1/sbt_0.11.0/org.scalaxb/sbt-scalaxb/jars/sbt-scalaxb-0.6.6-SNAPSHOT.jar)
 
 **NOTE**: This is calculated as `((dir / "cache") ** ("*" + organization + "*") ** ("*" + name + "*")).get` where dir is `~/.Ivy2`. **If there are related projects that include both your `organization` and `name`, they would also be cleaned from the cache!** (For example, `unfiltered/unfiltered` would pick up any `unfiltered-xxx`). To delete the files, run:
 
-    > clean-cache
+    > cleanCache
 
-Similarly, display what `clean-local` would clean, run:
+Similarly, to display what `cleanLocal` would clean, run:
 
-    > show clean-local-files
+    > show cleanLocalFiles
     [info] ArrayBuffer(/Users/foo/.ivy2/local/org.scalaxb ...
 
 This is calculated as `((dir / "local") ** ("*" + organization + "*") ** ("*" + name + "*")).get`. To delete these files, run:
 
-    > clean-local
+    > cleanLocal
     
-You probably want to clean cache if you clean local.
+If you cleaning local, it's probably a good idea to clean cache too.
+
+### cleaning other artifacts (0.1+ only)
+
+By passing command arguments, you can target other projects as well.
+
+To clean all artifacts from the organization `"net.databinder.dispatch"` that are cached.
+
+    > show cleanCacheFiles "net.databinder.dispatch"
+    [info] ArrayBuffer(~/.ivy2/cache/net.databinder.dispatch, ...
+
+    > cleanCache "net.databinder.dispatch"
+
+To clean all artifacts that includes both `"net.databinder.dispatch"` and `"dispatch-json4s"` that are cached:
+
+    > show cleanCacheFiles "net.databinder.dispatch" % "dispatch-json4s"
+    [info] ArrayBuffer(~/cache/net.databinder.dispatch/dispatch-json4s-native_2.10, ...
+    
+    > cleanCache "net.databinder.dispatch" % "dispatch-json4s"
+
+To clean all artifacts from the cache:
+
+    > show cleanCacheFiles *
+    [info] ArrayBuffer(~/.ivy2/cache, ...
+
+    > cleanCache *
+    [info] ArrayBuffer(~/.ivy2/cache, ...
+
+The arguments work the same for `cleanLocalFiles` and `cleanLocal`.
 
 ## License
+
 MIT License. It's already in the license, but THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
 Seriously, check what you're about to delete, and use it at your own risk.
