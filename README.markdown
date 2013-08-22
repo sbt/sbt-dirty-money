@@ -2,10 +2,16 @@ sbt-dirty-money is an sbt plugin for cleaning Ivy2 cache. If you use `publish-lo
 
 ## setup
 
-Add the following to your `~/.sbt/plugins/build.sbt`:
+For sbt 0.12, add the following to your `~/.sbt/plugins/build.sbt`:
 
 ```scala
 addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "0.0.1")
+```
+
+For sbt 0.13, add the following to your `~/.sbt/0.13/plugins/dirtymoney.sbt`:
+
+```scala
+addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "0.1.0")
 ```
 
 ## how to use
@@ -55,10 +61,9 @@ To clean all artifacts that includes both `"net.databinder.dispatch"` and `"disp
 To clean all artifacts from the cache:
 
     > show cleanCacheFiles *
-    [info] ArrayBuffer(~/.ivy2/cache, ...
+    [info] ArrayBuffer(~/.ivy2/cache, ~/.ivy2/cache/--compile-internal.xml ...
 
     > cleanCache *
-    [info] ArrayBuffer(~/.ivy2/cache, ...
 
 The arguments work the same for `cleanLocalFiles` and `cleanLocal`.
 
