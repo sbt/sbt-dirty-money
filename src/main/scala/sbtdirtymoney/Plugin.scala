@@ -8,9 +8,11 @@ import complete.Parser
 object Plugin extends sbt.Plugin {
   lazy val cleanCache      = InputKey[Unit]("clean-cache")
   lazy val cleanCacheFiles = InputKey[Seq[File]]("clean-cache-files")
+  lazy val cleanCacheFilesPrint = inputKey[Unit]("Print out the files/dirs in cache that would be deleted")
   lazy val cleanCacheIvy2Directory = SettingKey[File]("clean-cache-ivy-directory")
   lazy val cleanLocal      = InputKey[Unit]("clean-local")
   lazy val cleanLocalFiles = InputKey[Seq[File]]("clean-local-files")
+  lazy val cleanLocalFilesPrint = inputKey[Unit]("Print out the files/dirs in local that would be deleted")
 
   object DirtyMoney {
     import complete.DefaultParsers._
@@ -45,6 +47,8 @@ object Plugin extends sbt.Plugin {
       val base = cleanCacheIvy2Directory.value / "local"
       val param = DirtyMoney.parseParam.parsed
       DirtyMoney.query(base, param, organization.value, name.value)
-    }
+    },
+    cleanCacheFilesPrint := cleanCacheFiles.evaluated.foreach(println),
+    cleanLocalFilesPrint := cleanCacheFiles.evaluated.foreach(println)
   )
 }
