@@ -48,12 +48,12 @@ object DirtyMoneyPlugin extends AutoPlugin {
     cleanCacheFiles := {
       val base = cleanCacheIvyDirectory.value / "cache"
       val param = DirtyMoney.parseParam.parsed
-      DirtyMoney.query(base, param, organization.value, name.value)
+      DirtyMoney.query(base, param, organization.value, moduleName.value)
     },
     cleanLocalFiles := {
       val base = cleanCacheIvyDirectory.value / "local"
       val param = DirtyMoney.parseParam.parsed
-      DirtyMoney.query(base, param, organization.value, name.value)
+      DirtyMoney.query(base, param, organization.value, moduleName.value)
     }
   )
 }

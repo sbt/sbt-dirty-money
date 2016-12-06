@@ -22,7 +22,7 @@ To display what `cleanCache` would clean, run:
     [info] * /Users/foo/.ivy2/cache/scala_2.9.1/sbt_0.11.0/org.scalaxb/sbt-scalaxb
     [info] * /Users/foo/.ivy2/cache/scala_2.9.1/sbt_0.11.0/org.scalaxb/sbt-scalaxb/jars/sbt-scalaxb-0.6.6-SNAPSHOT.jar
 
-**NOTE**: This is calculated as `((dir / "cache") ** ("*" + organization + "*") ** ("*" + name + "*")).get` where dir is `~/.ivy2`. **If there are related projects that include both your `organization` and `name`, they would also be cleaned from the cache!** (For example, `unfiltered/unfiltered` would pick up any `unfiltered-xxx`). To delete the files, run:
+**NOTE**: This is calculated as `((dir / "cache") ** ("*" + organization + "*") ** ("*" + moduleName + "*")).get` where dir is `~/.ivy2`. **If there are related projects that include both your `organization` and `moduleName`, they would also be cleaned from the cache!** (For example, `unfiltered/unfiltered` would pick up any `unfiltered-xxx`). To delete the files, run:
 
     > cleanCache
 
@@ -31,7 +31,7 @@ Similarly, to display what `cleanLocal` would clean, run:
     > show cleanLocalFiles
     [info] * /Users/foo/.ivy2/local/org.scalaxb ...
 
-This is calculated as `((dir / "local") ** ("*" + organization + "*") ** ("*" + name + "*")).get`. To delete these files, run:
+This is calculated as `((dir / "local") ** ("*" + organization + "*") ** ("*" + moduleName + "*")).get`. To delete these files, run:
 
     > cleanLocal
 
