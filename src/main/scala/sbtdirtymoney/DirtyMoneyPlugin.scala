@@ -1,28 +1,37 @@
 package sbtdirtymoney
 
-import sbt._
-import Keys._
-import Project.Initialize
-import complete.Parser
+import sbt._, Keys._
 
-object Plugin extends sbt.Plugin {
-  lazy val cleanCache      = InputKey[Unit]("clean-cache")
-  lazy val cleanCacheFiles = InputKey[Seq[File]]("clean-cache-files")
-  lazy val cleanCacheIvy2Directory = SettingKey[File]("clean-cache-ivy-directory")
-  lazy val cleanLocal      = InputKey[Unit]("clean-local")
-  lazy val cleanLocalFiles = InputKey[Seq[File]]("clean-local-files")
+object DirtyMoneyPlugin extends AutoPlugin {
+  override def requires = plugins.IvyPlugin
+  override def trigger  = allRequirements
+
+  object autoImport {
+    val cleanCacheIvyDirectory: SettingKey[File] = settingKey[File]("")
+    val cleanCache: InputKey[Unit]               = inputKey[Unit]("")
+    val cleanCacheFiles: InputKey[Seq[File]]     = inputKey[Seq[File]]("")
+    val cleanLocal: InputKey[Unit]               = inputKey[Unit]("")
+    val cleanLocalFiles: InputKey[Seq[File]]     = inputKey[Seq[File]]("")
+  }
+  import autoImport._
 
   object DirtyMoney {
-    import complete.DefaultParsers._
-    case class ModuleParam(organization: String, name: Option[String])
+    import sbt.complete.Parser
+    import sbt.complete.DefaultParsers._
+
+    final case class ModuleParam(organization: String, name: Option[String])
+
     def parseParam: Parser[Option[ModuleParam]] =
       ((parseOrg ~ parseName.?) map {
         case o ~ n => ModuleParam(o, n)
       }).?
+
     private def parseOrg: Parser[String] =
       (Space ~> token(StringBasic.examples("\"organization\"")))
+
     private def parseName: Parser[String] =
       (Space ~> token(token("%") ~> Space ~> StringBasic.examples("\"name\"")))
+
     def query(base: File, param: Option[ModuleParam], org: String, name: String): Seq[File] =
       (param match {
         case None                                   => base ** ("*" + org + "*") ** ("*" + name + "*")
@@ -32,17 +41,17 @@ object Plugin extends sbt.Plugin {
       }).get
   }
 
-  override val settings: Seq[Def.Setting[_]] = Seq(
-    cleanCacheIvy2Directory <<= ivyPaths(_.ivyHome getOrElse(Path.userHome / ".ivy2")),
-    cleanCache <<= (cleanCacheFiles) map { files => IO.delete(files) },
-    cleanLocal <<= (cleanLocalFiles) map { files => IO.delete(files) },
+  override def projectSettings = Seq(
+    cleanCacheIvyDirectory := ivyPaths.value.ivyHome getOrElse (Path.userHome / ".ivy2"),
+    cleanCache := IO.delete(cleanCacheFiles.evaluated),
+    cleanLocal := IO.delete(cleanLocalFiles.evaluated),
     cleanCacheFiles := {
-      val base = cleanCacheIvy2Directory.value / "cache"
+      val base = cleanCacheIvyDirectory.value / "cache"
       val param = DirtyMoney.parseParam.parsed
       DirtyMoney.query(base, param, organization.value, name.value)
     },
     cleanLocalFiles := {
-      val base = cleanCacheIvy2Directory.value / "local"
+      val base = cleanCacheIvyDirectory.value / "local"
       val param = DirtyMoney.parseParam.parsed
       DirtyMoney.query(base, param, organization.value, name.value)
     }
