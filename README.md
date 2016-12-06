@@ -1,18 +1,14 @@
-sbt-dirty-money is an sbt plugin for cleaning Ivy2 cache. If you use `publish-local` to test plugins and libraries, and you find yourself clearing Ivy2 cache often, this is a tool for you.
+sbt-dirty-money is an sbt plugin for cleaning Ivy2's cache. If you use `publishLocal` to test plugins and libraries, and you find yourself clearing Ivy2's cache often, this is a tool for you.
 
 ## setup
 
-For sbt 0.12, add the following to your `~/.sbt/plugins/build.sbt`:
-
-```scala
-addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "0.0.1")
-```
-
-For sbt 0.13, add the following to your `~/.sbt/0.13/plugins/dirtymoney.sbt`:
+Add the following to your `~/.sbt/0.13/plugins/dirtymoney.sbt`:
 
 ```scala
 addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "0.1.0")
 ```
+
+Requires sbt 0.13.5+, 0.13.13+ recommend.
 
 ## how to use
 
@@ -20,25 +16,26 @@ addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "0.1.0")
 
 The above automatically adds 4 global tasks to sbt prompt: `cleanCacheFiles`, `cleanCache`, `cleanLocalFiles`, and `cleanLocal`.
 
-To display what `clean-cache` would clean, run:
+To display what `cleanCache` would clean, run:
 
     > show cleanCacheFiles
-    [info] ArrayBuffer(/Users/foo/.ivy2/cache/scala_2.9.1/sbt_0.11.0/org.scalaxb/sbt-scalaxb, /Users/foo/.ivy2/cache/scala_2.9.1/sbt_0.11.0/org.scalaxb/sbt-scalaxb/jars/sbt-scalaxb-0.6.6-SNAPSHOT.jar)
+    [info] * /Users/foo/.ivy2/cache/scala_2.9.1/sbt_0.11.0/org.scalaxb/sbt-scalaxb
+    [info] * /Users/foo/.ivy2/cache/scala_2.9.1/sbt_0.11.0/org.scalaxb/sbt-scalaxb/jars/sbt-scalaxb-0.6.6-SNAPSHOT.jar
 
-**NOTE**: This is calculated as `((dir / "cache") ** ("*" + organization + "*") ** ("*" + name + "*")).get` where dir is `~/.Ivy2`. **If there are related projects that include both your `organization` and `name`, they would also be cleaned from the cache!** (For example, `unfiltered/unfiltered` would pick up any `unfiltered-xxx`). To delete the files, run:
+**NOTE**: This is calculated as `((dir / "cache") ** ("*" + organization + "*") ** ("*" + name + "*")).get` where dir is `~/.ivy2`. **If there are related projects that include both your `organization` and `name`, they would also be cleaned from the cache!** (For example, `unfiltered/unfiltered` would pick up any `unfiltered-xxx`). To delete the files, run:
 
     > cleanCache
 
 Similarly, to display what `cleanLocal` would clean, run:
 
     > show cleanLocalFiles
-    [info] ArrayBuffer(/Users/foo/.ivy2/local/org.scalaxb ...
+    [info] * /Users/foo/.ivy2/local/org.scalaxb ...
 
 This is calculated as `((dir / "local") ** ("*" + organization + "*") ** ("*" + name + "*")).get`. To delete these files, run:
 
     > cleanLocal
-    
-If you cleaning local, it's probably a good idea to clean cache too.
+
+If you're cleaning local, it's probably a good idea to clean cache too.
 
 ### cleaning other artifacts (0.1+ only)
 
