@@ -3,7 +3,6 @@ name := "sbt-dirty-money"
 version := "0.1.1-SNAPSHOT"
 
 sbtPlugin := true
-scalaVersion := "2.10.6"
 
 description := "sbt plugin for cleaning Ivy2 cache"
 licenses := Seq("MIT License" -> url("https://github.com/sbt/sbt-dirty-money/blob/master/LICENSE"))
