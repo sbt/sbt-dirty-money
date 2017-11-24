@@ -2,6 +2,7 @@ sbt-dirty-money is an sbt plugin for cleaning Ivy2's cache. If you use `publishL
 
 ## setup
 
+### for sbt 0.13.x
 Add the following to your `~/.sbt/0.13/plugins/dirtymoney.sbt`:
 
 ```scala
@@ -9,6 +10,15 @@ addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "0.1.0")
 ```
 
 Requires sbt 0.13.5+, 0.13.13+ recommend.
+
+### for sbt 1.0.x
+Add the following to your `~/.sbt/1.0/plugins/dirtymoney.sbt`:
+
+```scala
+addSbtPlugin("com.eed3si9n" % "sbt-dirty-money" % "0.2.0")
+```
+
+Requires sbt 1.0.2+
 
 ## how to use
 
