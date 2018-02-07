@@ -1,6 +1,6 @@
 organization := "com.eed3si9n"
 name := "sbt-dirty-money"
-version := "0.1.1-SNAPSHOT"
+version := "0.2.0"
 
 sbtPlugin := true
 
@@ -12,5 +12,5 @@ scmInfo := Some(ScmInfo(url("https://github.com/sbt/sbt-dirty-money"), "git@gith
 
 scalacOptions := Seq("-deprecation", "-unchecked")
 
-bintrayOrganization := Some("sbt")
-bintrayRepository := "sbt-plugin-releases"
+bintrayOrganization := None
+bintrayRepository := "sbt-plugins"

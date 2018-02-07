@@ -1,0 +1,3 @@
+
+- sbt-dirty-money is now an AutoPlugin. #8 by @dwijnand
+- cross building with sbt 1.x and 0.13. #12 by @xuwei-k, #18 by @sullis
