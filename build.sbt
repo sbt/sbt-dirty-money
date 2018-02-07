@@ -1,6 +1,6 @@
 organization := "com.eed3si9n"
 name := "sbt-dirty-money"
-version := "0.2.0"
+version := "0.2.1-SNAPSHOT"
 
 sbtPlugin := true
 
